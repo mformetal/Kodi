@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="miles.kodi.InjectionTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2017-10-12T18:39:50" hostname="MAC4035.local" time="0.126">
+  <properties/>
+  <testcase name="testInjectionWithoutCallingInject" classname="miles.kodi.InjectionTest" time="0.122"/>
+  <testcase name="testBaseInjection" classname="miles.kodi.InjectionTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kodi.iml" filepath="$PROJECT_DIR$/.idea/modules/kodi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kodi_main.iml" filepath="$PROJECT_DIR$/.idea/modules/kodi_main.iml" group="kodi" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kodi_test.iml" filepath="$PROJECT_DIR$/.idea/modules/kodi_test.iml" group="kodi" />
+    </modules>
+  </component>
+</project>

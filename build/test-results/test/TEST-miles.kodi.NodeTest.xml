@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="miles.kodi.NodeTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2017-10-12T18:39:50" hostname="MAC4035.local" time="0.003">
+  <properties/>
+  <testcase name="testRemovingChildWithoutValidParent" classname="miles.kodi.NodeTest" time="0.0"/>
+  <testcase name="testRemovingChildNodes" classname="miles.kodi.NodeTest" time="0.0"/>
+  <testcase name="testUnregisteringRegistryRemovesChildFromParent" classname="miles.kodi.NodeTest" time="0.001"/>
+  <testcase name="testAddingChildNodes" classname="miles.kodi.NodeTest" time="0.0"/>
+  <testcase name="testAddingChildNodeToItself" classname="miles.kodi.NodeTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

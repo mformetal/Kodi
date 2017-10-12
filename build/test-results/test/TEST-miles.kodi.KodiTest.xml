@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="miles.kodi.KodiTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2017-10-12T18:39:50" hostname="MAC4035.local" time="0.031">
+  <properties/>
+  <testcase name="testUnregisteringRemovesNodeFromTree" classname="miles.kodi.KodiTest" time="0.005"/>
+  <testcase name="testBindingSameClassInSameScopeInDifferentPlacesWithTag" classname="miles.kodi.KodiTest" time="0.002"/>
+  <testcase name="testChildNodeRetrievingSingletonDependencies" classname="miles.kodi.KodiTest" time="0.007"/>
+  <testcase name="testRetrievingDependenciesOfDifferentScope" classname="miles.kodi.KodiTest" time="0.008"/>
+  <testcase name="testInitializingKodi" classname="miles.kodi.KodiTest" time="0.001"/>
+  <testcase name="testTreeStructureWhenScopingOnRoot" classname="miles.kodi.KodiTest" time="0.001"/>
+  <testcase name="testChildNodeRetrievingDependencies" classname="miles.kodi.KodiTest" time="0.002"/>
+  <testcase name="testBindingSameClassInSameScopeInDifferentPlacesWithoutTag" classname="miles.kodi.KodiTest" time="0.002"/>
+  <testcase name="testRetrievingDependenciesFromRoot" classname="miles.kodi.KodiTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
