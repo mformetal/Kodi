@@ -8,7 +8,6 @@ import org.junit.Test
 import assertk.assert
 import assertk.assertions.isEqualTo
 import miles.kodi.api.injection.InjectionRegistry
-import miles.kodi.api.scopedInstance
 import miles.kodi.internal.InjectNotCalledException
 import miles.kodi.provider.provider
 
@@ -74,7 +73,7 @@ class InjectionTest {
 
         fun onCreate(kodi: Kodi) {
             val registry = kodi.scope {
-                build(scopedInstance) {
+                build(scoped<ModuleInjection>()) {
                     bind<String>() using provider { "DUDE" }
                 }
             }

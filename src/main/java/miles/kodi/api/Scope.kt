@@ -8,5 +8,3 @@ import kotlin.reflect.KClass
 data class Scope(private val scopingClass: KClass<*>)
 
 inline fun <reified T> scoped() = Scope(T::class)
-
-val Any.scopedInstance : Scope get() = Scope(this::class)
