@@ -6,7 +6,10 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.isNotNull
 import assertk.assertions.isNull
 import miles.kodi.api.*
-import miles.kodi.internal.key
+import miles.kodi.api.builder.bind
+import miles.kodi.api.builder.get
+import miles.kodi.provider.provider
+import miles.kodi.provider.singleton
 import java.util.*
 
 /**
@@ -33,8 +36,7 @@ class KodiTest {
         }
 
         kodi.scope {
-            with(scoped<Activity>())
-            build { }
+            build(scoped<Activity>()) { }
         }
 
         assert(kodi.root.children.size).isEqualTo(1)
@@ -53,7 +55,7 @@ class KodiTest {
         }
 
         kodi.root.module.providers.run {
-            val key = SmallThing::class.simpleName
+            val key = toKey<SmallThing>()
             val provider = get(key)
             assert(provider).isNotNull()
             val smallThing = provider!!.provide()
@@ -69,8 +71,7 @@ class KodiTest {
         }
 
         kodi.scope {
-            with(scoped<Activity>())
-            build {
+            build(scoped<Activity>()) {
                 bind<DependencyTwo>() using provider { DependencyTwo() }
                 bind<MediumThing>() using provider { MediumThing(get(), get()) }
             }
@@ -78,7 +79,7 @@ class KodiTest {
 
         kodi.root.search { it.scope == scoped<Activity>() }!!
                 .run {
-                    val key = MediumThing::class.simpleName
+                    val key = toKey<MediumThing>()
                     val provider = module.providers[key]
                     assert(provider).isNotNull()
                     val mediumThing = provider!!.provide()
@@ -97,22 +98,20 @@ class KodiTest {
         }
 
         kodi.scope {
-            with(scoped<First>())
-            build {
+            build(scoped<First>()) {
                 bind<DependencyTwo>() using provider { DependencyTwo() }
             }
         }
 
         kodi.scope {
-            with(scoped<Second>())
-            build {
+            build((scoped<Second>())) {
                 bind<MediumThing>() using provider { MediumThing(get(), get()) }
             }
         }
 
         kodi.root.search { it.scope == scoped<Second>() }!!
                 .run {
-                    module.providers[MediumThing::class.simpleName]!!.provide()
+                    module.providers[toKey<MediumThing>()]!!.provide()
                 }
     }
 
@@ -124,8 +123,7 @@ class KodiTest {
         }
 
         kodi.scope {
-            with(scoped<Activity>())
-            build {
+            build(scoped<Activity>()) {
                 bind<DependencyTwo>() using provider { DependencyTwo() }
                 bind<MediumThing>() using provider { MediumThing(get(), get()) }
             }
@@ -133,12 +131,12 @@ class KodiTest {
 
         kodi.root.search { it.scope == scoped<Activity>() }!!
                 .run {
-                    val key = MediumThing::class.simpleName
+                    val key = toKey<MediumThing>()
                     val provider = module.providers[key]
                     assert(provider).isNotNull()
                     val mediumThing = provider!!.provide() as MediumThing
                     val mediumThingDependencyOne = mediumThing.dependencyOne
-                    val rootDependencyOne = kodi.root.module.providers[DependencyOne::class.simpleName]!!.provide() as DependencyOne
+                    val rootDependencyOne = kodi.root.module.providers[toKey<DependencyOne>()]!!.provide() as DependencyOne
                     assert(mediumThingDependencyOne).isEqualTo(rootDependencyOne)
                     assert(mediumThingDependencyOne.id).isEqualTo(rootDependencyOne.id)
                 }
@@ -152,8 +150,7 @@ class KodiTest {
         }
 
         val registry = kodi.scope {
-            with(scoped<Activity>())
-            build {
+            build(scoped<Activity>()) {
                 bind<DependencyTwo>() using provider { DependencyTwo() }
                 bind<MediumThing>() using provider { MediumThing(get(), get()) }
             }
@@ -175,13 +172,12 @@ class KodiTest {
         }
 
         kodi.scope {
-            with(scoped<Activity>())
-            build {
+            build(scoped<Activity>()) {
                 bind<DependencyOne>() using provider { DependencyOne(second) }
             }
         }
 
-        val instance = kodi.get<DependencyOne>(scoped<Activity>())
+        val instance = kodi.instance<DependencyOne>(scoped<Activity>())
         assert(instance.id).isEqualTo(second)
     }
 
@@ -195,13 +191,12 @@ class KodiTest {
         }
 
         kodi.scope {
-            with(scoped<Activity>())
-            build {
+            build(scoped<Activity>()) {
                 bind<DependencyOne>() using provider { DependencyOne(second) }
             }
         }
 
-        val instance = kodi.get<DependencyOne>(scoped<Activity>(), "app")
+        val instance = kodi.instance<DependencyOne>(scoped<Activity>(), "app")
         assert(instance.id).isEqualTo(first)
     }
 
@@ -209,8 +204,6 @@ class KodiTest {
 
     class DependencyOne(val id: String = UUID.randomUUID().toString())
     class DependencyTwo
-    class DependencyThree
     class SmallThing(val dependencyOne: DependencyOne)
     class MediumThing(val dependencyOne: DependencyOne, val dependencyTwo: DependencyTwo)
-    class HugeThing(val dependencyOne: DependencyOne, val dependencyTwo: DependencyTwo, val dependencyThree: DependencyThree)
 }

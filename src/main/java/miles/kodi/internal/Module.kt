@@ -1,6 +1,7 @@
 package miles.kodi.internal
 
-import miles.kodi.api.KodiBuilder
+import miles.kodi.api.builder.KodiBuilder
+import miles.kodi.api.KodiKey
 import miles.kodi.provider.Provider
 import kotlin.reflect.KClass
 
@@ -10,7 +11,7 @@ import kotlin.reflect.KClass
 internal class Module : KodiBuilder {
 
     @Suppress("MemberVisibilityCanPrivate")
-    internal val providers: HashMap<String, Provider<*>> = HashMap()
+    internal val providers: HashMap<KodiKey, Provider<*>> = HashMap()
 
     override fun child(builder: KodiBuilder.() -> Unit) {
         val module = Module().apply(builder)
@@ -18,30 +19,27 @@ internal class Module : KodiBuilder {
     }
 
     override fun <T : Any> bind(tag: String, type: KClass<T>) : BindingBuilder<T> {
-        if (providers.keys.contains(type.simpleName) && tag.isEmpty()) {
+        val key = KodiKey(type, tag)
+        if (providers.keys.contains(key) && tag.isEmpty()) {
             throw AmbiguousBindingException()
-        } else if (providers.keys.contains(type.simpleName + tag)) {
+        } else if (providers.keys.contains(key)) {
             throw DuplicateBindingException()
         }
 
-        val key = type.key(tag)
         return BindingBuilder(key)
     }
 
-    override fun <T> BindingBuilder<T>.using(provider: Provider<T>) {
-        providers.put(key, provider)
+    override fun <T : Any> BindingBuilder<T>.using(provider: Provider<T>) {
+        providers.put(kodiKey, provider)
     }
 
     override fun <T: Any> get(tag: String, type: KClass<T>): T {
-        val key = type.key(tag)
+        val key = KodiKey(type, tag)
         @Suppress("UNCHECKED_CAST")
         return providers[key]!!.provide() as T
     }
 }
 
-@PublishedApi
-internal fun KClass<*>.key(tag: String = "") = simpleName + tag
-
 internal fun module(block: Module.() -> Unit) = Module().apply(block)
 
-class BindingBuilder<T>(val key: String)
+class BindingBuilder<T : Any>(val kodiKey: KodiKey)
