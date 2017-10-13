@@ -4,6 +4,7 @@ import miles.kodi.Kodi
 import miles.kodi.api.Scope
 import miles.kodi.internal.InjectNotCalledException
 import miles.kodi.api.KodiKey
+import java.lang.reflect.Type
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty
@@ -15,9 +16,9 @@ class KodiInjector : InjectionRegistry {
 
     private val injectionProperties: MutableSet<InjectionProperty<*>> = mutableSetOf()
 
-    override fun <T : Any> register(type: KClass<T>, tag: String): ReadOnlyProperty<Any, T> {
-        val key = KodiKey(type, tag)
-        val injection = InjectionProperty<T>(key)
+    override fun <T : Any> register(tag: String, type: KClass<T>, generics: Array<Type>): ReadOnlyProperty<Any, T> {
+        val key = KodiKey(type, generics, tag)
+        val injection = InjectionProperty(key)
         injectionProperties.add(injection)
         return injection
     }
@@ -27,7 +28,7 @@ class KodiInjector : InjectionRegistry {
         injectionProperties.clear()
     }
 
-    private class InjectionProperty<T : Any>(private val kodiKey: KodiKey) : ReadOnlyProperty<Any, T> {
+    private class InjectionProperty<T : Any>(private val kodiKey: KodiKey<T>) : ReadOnlyProperty<Any, T> {
 
         var value : T ?= null
 

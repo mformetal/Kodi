@@ -8,7 +8,7 @@ import miles.kodi.api.Scope
  */
 internal class NoMatchingScopeException(scope: Scope) : IllegalArgumentException("No matching scope $scope exists.")
 
-internal class NoMatchingKeyException(kodiKey: KodiKey) : IllegalArgumentException("No matching kodiKey $kodiKey exists.")
+internal class NoMatchingKeyException(kodiKey: KodiKey<*>) : IllegalArgumentException("No matching kodiKey $kodiKey exists.")
 
 internal class CyclicalNodeAdditionException(node: Node) : UnsupportedOperationException("Cannot cyclically add $node to itself.")
 

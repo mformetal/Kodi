@@ -25,7 +25,7 @@ class Kodi private constructor(internal val root: Node) {
         return NodeRegistry(scopeBuilder.parentNode, scopeBuilder.childNode)
     }
 
-    fun <T : Any> instance(scope: Scope, kodiKey: KodiKey) : T {
+    fun <T : Any> instance(scope: Scope, kodiKey: KodiKey<T>) : T {
         val child = root.search { it.scope == scope } ?: throw NoMatchingScopeException(scope)
         val result = child.searchUpToRoot { it.module.providers.containsKey(kodiKey) } ?: throw NoMatchingKeyException(kodiKey)
         @Suppress("UNCHECKED_CAST")

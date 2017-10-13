@@ -146,9 +146,33 @@ class ModuleTest {
         module.get<SmallThing>()
     }
 
+    @Test
+    fun testRetrievingTypedInterface() {
+        val module = module {
+            bind<TypedApi<String>>() using provider {
+                object : TypedApi<String> {
+                    override fun get(): String = "THIS"
+                }
+            }
+            bind<TypedApi<Int>>() using provider {
+                object : TypedApi<Int> {
+                    override fun get(): Int = 50
+                }
+            }
+        }
+
+        val stringApi = module.get<TypedApi<String>>()
+        val intApi = module.get<TypedApi<Int>>()
+        assert(stringApi.get()).isEqualTo("THIS")
+        assert(intApi.get()).isEqualTo(50)
+    }
+
     class Thing(val string: String = "", val int: Int = 0)
     interface Api
     class ThingImpl : Api
     open class SuperThing
     class SmallThing : SuperThing()
+    interface TypedApi<out T> {
+        fun get() : T
+    }
 }

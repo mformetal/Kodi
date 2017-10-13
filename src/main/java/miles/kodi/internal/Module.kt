@@ -3,6 +3,7 @@ package miles.kodi.internal
 import miles.kodi.api.builder.KodiBuilder
 import miles.kodi.api.KodiKey
 import miles.kodi.provider.Provider
+import java.lang.reflect.Type
 import kotlin.reflect.KClass
 
 /**
@@ -11,15 +12,15 @@ import kotlin.reflect.KClass
 internal class Module : KodiBuilder {
 
     @Suppress("MemberVisibilityCanPrivate")
-    internal val providers: HashMap<KodiKey, Provider<*>> = HashMap()
+    internal val providers: HashMap<KodiKey<*>, Provider<*>> = HashMap()
 
     override fun child(builder: KodiBuilder.() -> Unit) {
         val module = Module().apply(builder)
         providers.putAll(module.providers)
     }
 
-    override fun <T : Any> bind(tag: String, type: KClass<T>) : BindingBuilder<T> {
-        val key = KodiKey(type, tag)
+    override fun <T : Any> bind(tag: String, type: KClass<T>, generics: Array<Type>) : BindingBuilder<T> {
+        val key = KodiKey(type, generics, tag)
         if (providers.keys.contains(key) && tag.isEmpty()) {
             throw AmbiguousBindingException()
         } else if (providers.keys.contains(key)) {
@@ -33,8 +34,8 @@ internal class Module : KodiBuilder {
         providers.put(kodiKey, provider)
     }
 
-    override fun <T: Any> get(tag: String, type: KClass<T>): T {
-        val key = KodiKey(type, tag)
+    override fun <T: Any> get(tag: String, type: KClass<T>, generics: Array<Type>): T {
+        val key = KodiKey(type, generics, tag)
         @Suppress("UNCHECKED_CAST")
         return providers[key]!!.provide() as T
     }
@@ -42,4 +43,4 @@ internal class Module : KodiBuilder {
 
 internal fun module(block: Module.() -> Unit) = Module().apply(block)
 
-class BindingBuilder<T : Any>(val kodiKey: KodiKey)
+class BindingBuilder<T : Any>(val kodiKey: KodiKey<T>)
