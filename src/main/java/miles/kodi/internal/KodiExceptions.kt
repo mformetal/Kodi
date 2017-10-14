@@ -6,7 +6,7 @@ import miles.kodi.api.Scope
 /**
  * Created by peelemil on 10/11/17.
  */
-internal class NoMatchingScopeException(scope: Scope) : IllegalArgumentException("No matching scope $scope exists.")
+internal class NoMatchingScopeException(scope: Scope) : IllegalArgumentException("No matching scopeBuilder $scope exists.")
 
 internal class NoMatchingKeyException(kodiKey: KodiKey<*>) : IllegalArgumentException("No matching kodiKey $kodiKey exists.")
 

@@ -20,8 +20,17 @@ class Kodi private constructor(internal val root: Node) {
         }
     }
 
-    fun scope(builder: ScopeBuilder.() -> Unit) : ScopeRegistry {
+    fun scopeBuilder(builder: ScopeBuilder.() -> Unit) : ScopeRegistry {
         val scopeBuilder = KodiScopeBuilder(this).apply(builder)
+        return NodeRegistry(scopeBuilder.parentNode, scopeBuilder.childNode)
+    }
+
+    fun scopeBuilder() : ScopeBuilder = KodiScopeBuilder(this)
+
+    fun installScope(scopeModule: ScopeModule) : ScopeRegistry {
+        val scopeBuilder = KodiScopeBuilder(this)
+        scopeBuilder.dependsOn(scopeModule.dependsOn())
+        scopeBuilder.build(scopeModule.with(), scopeModule.providers())
         return NodeRegistry(scopeBuilder.parentNode, scopeBuilder.childNode)
     }
 
@@ -32,5 +41,5 @@ class Kodi private constructor(internal val root: Node) {
         return result.module.providers[kodiKey]!!.provide() as T
     }
 
-    inline fun <reified T : Any> instance(scope: Scope, tag: String = "") : T = instance(scope, toKey<T>(tag))
+    inline fun <reified T : Any> instance(scope: Scope, tag: String = "") : T = instance(scope, toKey(tag))
 }

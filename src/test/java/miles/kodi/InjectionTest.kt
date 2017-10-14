@@ -20,7 +20,7 @@ class InjectionTest {
     fun testBaseInjection() {
         val kodi = Kodi.init {  }
 
-        kodi.scope {
+        kodi.scopeBuilder {
             build(scoped<SimpleInjection>()) {
                 bind<String>() using provider { "BRO" }
             }
@@ -37,7 +37,7 @@ class InjectionTest {
     fun testInjectionWithoutCallingInject() {
         val kodi = Kodi.init {  }
 
-        kodi.scope {
+        kodi.scopeBuilder {
             build(scoped<SimpleInjection>()) {
                 bind<String>() using provider { "BRO" }
             }
@@ -72,7 +72,7 @@ class InjectionTest {
         val string: String by injector.register()
 
         fun onCreate(kodi: Kodi) {
-            val registry = kodi.scope {
+            val registry = kodi.scopeBuilder {
                 build(scoped<ModuleInjection>()) {
                     bind<String>() using provider { "DUDE" }
                 }

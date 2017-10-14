@@ -9,6 +9,6 @@ interface ScopeBuilder {
 
     fun dependsOn(scope: Scope) : ScopeBuilder
 
-    fun build(scope: Scope, block: KodiBuilder.() -> Unit) : ScopeBuilder
+    fun build(scope: Scope, block: KodiBuilder.() -> Unit)
 
 }

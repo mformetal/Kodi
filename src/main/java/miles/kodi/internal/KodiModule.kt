@@ -17,7 +17,7 @@ internal class KodiModule(internal val nodeOfModule: Node,
         val node = nodeOfModule.searchUpToRoot { it.module.providers.contains(key) }
         @Suppress("FoldInitializerAndIfToElvis")
         if (node == null) {
-            throw IllegalStateException("No binding with kodiKey $key exists for scope ${nodeOfModule.scope}.")
+            throw IllegalStateException("No binding with kodiKey $key exists for scopeBuilder ${nodeOfModule.scope}.")
         }
         return node.module.get(tag, type, generics)
     }

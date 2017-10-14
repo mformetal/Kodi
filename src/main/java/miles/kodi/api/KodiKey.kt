@@ -29,7 +29,8 @@ internal constructor(
 
 inline fun <reified T : Any> toKey(tag: String = "") = KodiKey(T::class, generics<T>(), tag)
 
-abstract class TypeReference<T> : Comparable<TypeReference<T>> {
+@PublishedApi
+internal abstract class TypeReference<T> : Comparable<TypeReference<T>> {
     val type: Type
         get() =
             if (javaClass.genericSuperclass is ParameterizedType) {
@@ -41,7 +42,8 @@ abstract class TypeReference<T> : Comparable<TypeReference<T>> {
     override fun compareTo(other: TypeReference<T>) = 0
 }
 
-inline fun <reified T : Any> generics() : Array<Type> {
+@PublishedApi
+internal inline fun <reified T : Any> generics() : Array<Type> {
     val type = object : TypeReference<T>() {}.type
     return if (type is ParameterizedType) {
         type.actualTypeArguments

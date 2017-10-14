@@ -35,7 +35,7 @@ class KodiTest {
 
         }
 
-        kodi.scope {
+        kodi.scopeBuilder {
             build(scoped<Activity>()) { }
         }
 
@@ -70,7 +70,7 @@ class KodiTest {
             bind<SmallThing>() using provider { SmallThing(get()) }
         }
 
-        kodi.scope {
+        kodi.scopeBuilder {
             build(scoped<Activity>()) {
                 bind<DependencyTwo>() using provider { DependencyTwo() }
                 bind<MediumThing>() using provider { MediumThing(get(), get()) }
@@ -97,13 +97,13 @@ class KodiTest {
             bind<SmallThing>() using provider { SmallThing(get()) }
         }
 
-        kodi.scope {
+        kodi.scopeBuilder {
             build(scoped<First>()) {
                 bind<DependencyTwo>() using provider { DependencyTwo() }
             }
         }
 
-        kodi.scope {
+        kodi.scopeBuilder {
             build((scoped<Second>())) {
                 bind<MediumThing>() using provider { MediumThing(get(), get()) }
             }
@@ -122,7 +122,7 @@ class KodiTest {
             bind<SmallThing>() using provider { SmallThing(get()) }
         }
 
-        kodi.scope {
+        kodi.scopeBuilder {
             build(scoped<Activity>()) {
                 bind<DependencyTwo>() using provider { DependencyTwo() }
                 bind<MediumThing>() using provider { MediumThing(get(), get()) }
@@ -149,7 +149,7 @@ class KodiTest {
             bind<SmallThing>() using provider { SmallThing(get()) }
         }
 
-        val registry = kodi.scope {
+        val registry = kodi.scopeBuilder {
             build(scoped<Activity>()) {
                 bind<DependencyTwo>() using provider { DependencyTwo() }
                 bind<MediumThing>() using provider { MediumThing(get(), get()) }
@@ -171,7 +171,7 @@ class KodiTest {
             bind<DependencyOne>() using provider { DependencyOne(first) }
         }
 
-        kodi.scope {
+        kodi.scopeBuilder {
             build(scoped<Activity>()) {
                 bind<DependencyOne>() using provider { DependencyOne(second) }
             }
@@ -190,11 +190,10 @@ class KodiTest {
             bind<DependencyOne>("app") using provider { DependencyOne(first) }
         }
 
-        kodi.scope {
-            build(scoped<Activity>()) {
-                bind<DependencyOne>() using provider { DependencyOne(second) }
-            }
-        }
+        kodi.scopeBuilder()
+                .build(scoped<Activity>(), {
+                    bind<DependencyOne>() using provider { DependencyOne(second) }
+                })
 
         val instance = kodi.instance<DependencyOne>(scoped<Activity>(), "app")
         assert(instance.id).isEqualTo(first)

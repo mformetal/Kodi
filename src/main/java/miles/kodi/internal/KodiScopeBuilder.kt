@@ -15,11 +15,10 @@ internal class KodiScopeBuilder(private val kodi: Kodi) : ScopeBuilder {
         return this
     }
 
-    override fun build(scope: Scope, block: KodiBuilder.() -> Unit) : ScopeBuilder {
+    override fun build(scope: Scope, block: KodiBuilder.() -> Unit) {
         val module = Module()
         childNode = Node(module, scope)
         parentNode.addChild(childNode)
         KodiModule(childNode, module).apply(block)
-        return this
     }
 }
