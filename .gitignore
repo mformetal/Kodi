@@ -21,7 +21,7 @@ workspace.xml
 /js/js.translator/testData/**/out/
 .gradle/
 build/
-!**/src/**/build
+!core/src/**/build
 !**/test/**/build
 .idea/modules.xml
 .idea/libraries/Gradle*.xml

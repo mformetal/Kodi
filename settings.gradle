@@ -1,2 +1,3 @@
+include ':core', ':android'
 rootProject.name = 'kodi'
 
