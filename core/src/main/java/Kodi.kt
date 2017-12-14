@@ -1,5 +1,3 @@
-package mformetal.kodi.core
-
 import mformetal.kodi.core.api.*
 import mformetal.kodi.core.api.builder.KodiBuilder
 import mformetal.kodi.core.api.builder.ScopeBuilder

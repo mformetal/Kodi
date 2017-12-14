@@ -1,8 +1,5 @@
-package mformetal.kodi.android
-
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import mformetal.kodi.core.Kodi
 import mformetal.kodi.core.api.ScopeRegistry
 import mformetal.kodi.core.api.injection.InjectionRegistry
 import mformetal.kodi.core.api.injection.KodiInjector

@@ -1,7 +1,5 @@
-package mformetal.kodi.android
-
 import android.app.Application
-import mformetal.kodi.core.Kodi
+import Kodi
 
 /**
  * Created from milespeele on 7/3/15.

@@ -10,7 +10,7 @@ import mformetal.kodi.provider.component
 import org.junit.Test
 import assertk.assert
 import assertk.assertions.isEqualTo
-import mformetal.kodi.core.Kodi
+import Kodi
 import mformetal.kodi.internal.Module
 
 class InstallKodiScopeTest {

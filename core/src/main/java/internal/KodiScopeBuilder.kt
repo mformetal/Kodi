@@ -1,6 +1,6 @@
 package mformetal.kodi.internal
 
-import mformetal.kodi.core.Kodi
+import Kodi
 import mformetal.kodi.core.api.Scope
 import mformetal.kodi.core.api.builder.KodiBuilder
 import mformetal.kodi.core.api.builder.ScopeBuilder

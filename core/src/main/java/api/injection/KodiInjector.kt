@@ -1,6 +1,6 @@
 package mformetal.kodi.core.api.injection
 
-import mformetal.kodi.core.Kodi
+import Kodi
 import mformetal.kodi.core.api.Scope
 import mformetal.kodi.internal.InjectNotCalledException
 import mformetal.kodi.core.api.KodiKey
