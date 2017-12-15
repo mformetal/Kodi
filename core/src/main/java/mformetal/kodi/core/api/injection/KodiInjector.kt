@@ -1,9 +1,9 @@
 package mformetal.kodi.core.api.injection
 
-import Kodi
-import mformetal.kodi.core.api.Scope
-import mformetal.kodi.internal.InjectNotCalledException
+import mformetal.kodi.core.Kodi
 import mformetal.kodi.core.api.KodiKey
+import mformetal.kodi.core.api.Scope
+import mformetal.kodi.core.internal.InjectNotCalledException
 import java.lang.reflect.Type
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KClass

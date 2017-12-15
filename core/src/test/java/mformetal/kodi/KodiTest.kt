@@ -3,14 +3,11 @@ package mformetal.kodi
 import org.junit.Test
 import assertk.assert
 import assertk.assertions.isEqualTo
-import assertk.assertions.isNotNull
-import assertk.assertions.isNull
 import Kodi
-import mformetal.kodi.core.api.*
 import mformetal.kodi.core.api.builder.bind
 import mformetal.kodi.core.api.builder.get
-import mformetal.kodi.provider.provider
-import mformetal.kodi.provider.singleton
+import mformetal.kodi.core.provider.provider
+import mformetal.kodi.core.provider.singleton
 import java.util.*
 
 /**

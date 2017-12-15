@@ -1,8 +1,8 @@
 package mformetal.kodi.core.api.builder
 
 import mformetal.kodi.core.api.generics
-import mformetal.kodi.internal.BindingBuilder
-import mformetal.kodi.provider.Provider
+import mformetal.kodi.core.internal.BindingBuilder
+import mformetal.kodi.core.provider.Provider
 import java.lang.reflect.Type
 import kotlin.reflect.KClass
 

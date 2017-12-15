@@ -1,7 +1,10 @@
+package mformetal.kodi.core
+
 import mformetal.kodi.core.api.*
 import mformetal.kodi.core.api.builder.KodiBuilder
 import mformetal.kodi.core.api.builder.ScopeBuilder
-import mformetal.kodi.internal.*
+import mformetal.kodi.core.internal.*
+
 
 /**
  * Created by peelemil on 10/11/17.

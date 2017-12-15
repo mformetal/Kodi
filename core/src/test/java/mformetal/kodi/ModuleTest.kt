@@ -1,15 +1,11 @@
 package mformetal.kodi
 
 import assertk.assert
-import assertk.assertions.isEqualTo
-import assertk.assertions.isInstanceOf
-import assertk.assertions.isNotEqualTo
-import assertk.assertions.isNotNull
 import mformetal.kodi.core.api.builder.bind
 import mformetal.kodi.core.api.builder.get
 import mformetal.kodi.internal.module
-import mformetal.kodi.provider.provider
-import mformetal.kodi.provider.singleton
+import mformetal.kodi.core.provider.provider
+import mformetal.kodi.core.provider.singleton
 import org.junit.Test
 import java.util.*
 

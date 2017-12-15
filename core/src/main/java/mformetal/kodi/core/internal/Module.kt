@@ -1,8 +1,10 @@
-package mformetal.kodi.internal
+package mformetal.kodi.core.internal
 
 import mformetal.kodi.core.api.builder.KodiBuilder
 import mformetal.kodi.core.api.KodiKey
-import mformetal.kodi.provider.Provider
+import mformetal.kodi.core.internal.AmbiguousBindingException
+import mformetal.kodi.core.internal.DuplicateBindingException
+import mformetal.kodi.core.provider.Provider
 import java.lang.reflect.Type
 import kotlin.reflect.KClass
 

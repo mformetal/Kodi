@@ -1,5 +1,8 @@
+package mformetal.kodi.android
+
 import android.content.Context
 import android.support.v4.app.Fragment
+import mformetal.kodi.core.Kodi
 import mformetal.kodi.core.api.ScopeRegistry
 import mformetal.kodi.core.api.injection.InjectionRegistry
 import mformetal.kodi.core.api.injection.KodiInjector

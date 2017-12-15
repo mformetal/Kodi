@@ -1,4 +1,4 @@
-package mformetal.kodi.internal
+package mformetal.kodi.core.internal
 
 import mformetal.kodi.core.api.KodiKey
 import mformetal.kodi.core.api.Scope

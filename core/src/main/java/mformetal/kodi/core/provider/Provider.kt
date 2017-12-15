@@ -1,4 +1,4 @@
-package mformetal.kodi.provider
+package mformetal.kodi.core.provider
 
 /**
  * Created from mbpeele on 10/7/17.

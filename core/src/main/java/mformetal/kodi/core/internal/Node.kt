@@ -1,6 +1,8 @@
-package mformetal.kodi.internal
+package mformetal.kodi.core.internal
 
 import mformetal.kodi.core.api.Scope
+import mformetal.kodi.core.internal.CyclicalNodeAdditionException
+import mformetal.kodi.core.internal.RemovingNonChildNodeException
 import java.util.*
 
 /**

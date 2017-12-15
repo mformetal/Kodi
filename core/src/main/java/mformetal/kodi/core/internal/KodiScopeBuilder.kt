@@ -1,9 +1,9 @@
-package mformetal.kodi.internal
+package mformetal.kodi.core.internal
 
-import Kodi
+import mformetal.kodi.core.api.builder.ScopeBuilder
+import mformetal.kodi.core.Kodi
 import mformetal.kodi.core.api.Scope
 import mformetal.kodi.core.api.builder.KodiBuilder
-import mformetal.kodi.core.api.builder.ScopeBuilder
 
 internal class KodiScopeBuilder(private val kodi: Kodi) : ScopeBuilder {
 

@@ -9,8 +9,8 @@ import assertk.assert
 import assertk.assertions.isEqualTo
 import Kodi
 import mformetal.kodi.core.api.injection.InjectionRegistry
-import mformetal.kodi.internal.InjectNotCalledException
-import mformetal.kodi.provider.provider
+import mformetal.kodi.core.internal.InjectNotCalledException
+import mformetal.kodi.core.provider.provider
 
 /**
  * Created by peelemil on 10/11/17.

@@ -3,9 +3,6 @@ package mformetal.kodi
 import mformetal.kodi.core.api.Scope
 import org.junit.Test
 import assertk.assert
-import assertk.assertions.isEmpty
-import assertk.assertions.isNull
-import mformetal.kodi.internal.*
 
 /**
  * Created from mbpeele on 10/7/17.

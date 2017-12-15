@@ -1,7 +1,7 @@
-package mformetal.kodi.internal
+package mformetal.kodi.core.internal
 
-import mformetal.kodi.core.api.builder.KodiBuilder
 import mformetal.kodi.core.api.KodiKey
+import mformetal.kodi.core.api.builder.KodiBuilder
 import java.lang.reflect.Type
 import kotlin.reflect.KClass
 

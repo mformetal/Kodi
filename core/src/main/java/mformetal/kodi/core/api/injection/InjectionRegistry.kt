@@ -1,6 +1,6 @@
 package mformetal.kodi.core.api.injection
 
-import Kodi
+import mformetal.kodi.core.Kodi
 import mformetal.kodi.core.api.Scope
 import mformetal.kodi.core.api.generics
 import java.lang.reflect.Type

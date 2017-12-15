@@ -1,4 +1,4 @@
-package mformetal.kodi.provider
+package mformetal.kodi.core.provider
 
 inline fun <T> provider(crossinline block: () -> T) : Provider<T> {
     return object : Provider<T> {
