@@ -14,6 +14,15 @@ class Kodi private constructor(internal val root: Node) {
     companion object {
         internal val ROOT_SCOPE = scoped<Kodi>()
 
+        val EMPTY_REGISTRY = object : ScopeRegistry {
+            override val scope: Scope
+                get() = ROOT_SCOPE
+
+            override fun unregister() {
+
+            }
+        }
+
         fun init(builder: KodiBuilder.() -> Unit) : Kodi {
             val module = Module().apply(builder)
             val rootNode = Node(module, ROOT_SCOPE)

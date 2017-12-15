@@ -1,9 +1,10 @@
 package mformetal.kodi.core.internal
 
-import mformetal.kodi.core.api.builder.ScopeBuilder
 import mformetal.kodi.core.Kodi
 import mformetal.kodi.core.api.Scope
+import mformetal.kodi.core.api.ScopeRegistry
 import mformetal.kodi.core.api.builder.KodiBuilder
+import mformetal.kodi.core.api.builder.ScopeBuilder
 
 internal class KodiScopeBuilder(private val kodi: Kodi) : ScopeBuilder {
 
@@ -15,10 +16,11 @@ internal class KodiScopeBuilder(private val kodi: Kodi) : ScopeBuilder {
         return this
     }
 
-    override fun build(scope: Scope, block: KodiBuilder.() -> Unit) {
+    override fun build(scope: Scope, block: KodiBuilder.() -> Unit): ScopeRegistry {
         val module = Module()
         childNode = Node(module, scope)
         parentNode.addChild(childNode)
         KodiModule(childNode, module).apply(block)
+        return NodeRegistry(parentNode, childNode)
     }
 }
