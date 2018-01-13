@@ -3,10 +3,12 @@ package mformetal.kodi
 import mformetal.kodi.core.api.toKey
 import org.junit.Test
 import assertk.assert
+import assertk.assertions.isEqualTo
+import assertk.assertions.isNotEqualTo
 import mformetal.kodi.core.api.generics
 
 /**
- * Created by peelemil on 10/13/17.
+ * Created by mbpeele on 10/13/17.
  */
 class KodiKeyTest {
 

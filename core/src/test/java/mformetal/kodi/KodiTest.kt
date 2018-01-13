@@ -1,17 +1,21 @@
 package mformetal.kodi
 
-import org.junit.Test
 import assertk.assert
 import assertk.assertions.isEqualTo
-import Kodi
+import assertk.assertions.isNotNull
+import assertk.assertions.isNull
+import mformetal.kodi.core.Kodi
 import mformetal.kodi.core.api.builder.bind
 import mformetal.kodi.core.api.builder.get
+import mformetal.kodi.core.api.scoped
+import mformetal.kodi.core.api.toKey
 import mformetal.kodi.core.provider.provider
 import mformetal.kodi.core.provider.singleton
+import org.junit.Test
 import java.util.*
 
 /**
- * Created by peelemil on 10/11/17.
+ * Created by mbpeele on 10/11/17.
  */
 class KodiTest {
 

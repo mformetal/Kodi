@@ -10,7 +10,7 @@ import kotlin.reflect.KClass
 import kotlin.reflect.KProperty
 
 /**
- * Created by peelemil on 10/11/17.
+ * Created by mbpeele on 10/11/17.
  */
 class KodiInjector : InjectionRegistry {
 

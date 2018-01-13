@@ -4,7 +4,7 @@ import mformetal.kodi.core.api.KodiKey
 import mformetal.kodi.core.api.Scope
 
 /**
- * Created by peelemil on 10/11/17.
+ * Created by mbpeele on 10/11/17.
  */
 internal class NoMatchingScopeException(scope: Scope) : IllegalArgumentException("No matching scopeBuilder $scope exists.")
 

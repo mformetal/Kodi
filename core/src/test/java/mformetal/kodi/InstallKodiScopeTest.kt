@@ -1,16 +1,17 @@
 package mformetal.kodi
 
+import assertk.assert
+import assertk.assertions.isEqualTo
+import mformetal.kodi.core.Kodi
 import mformetal.kodi.core.api.Scope
 import mformetal.kodi.core.api.ScopeModule
 import mformetal.kodi.core.api.builder.KodiBuilder
 import mformetal.kodi.core.api.builder.bind
 import mformetal.kodi.core.api.providerBuilder
 import mformetal.kodi.core.api.scoped
+import mformetal.kodi.core.internal.Module
 import mformetal.kodi.core.provider.component
 import org.junit.Test
-import assertk.assert
-import Kodi
-import mformetal.kodi.internal.Module
 
 class InstallKodiScopeTest {
 

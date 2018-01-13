@@ -1,8 +1,11 @@
 package mformetal.kodi
 
-import mformetal.kodi.core.api.Scope
-import org.junit.Test
 import assertk.assert
+import assertk.assertions.isEmpty
+import assertk.assertions.isNull
+import mformetal.kodi.core.api.Scope
+import mformetal.kodi.core.internal.*
+import org.junit.Test
 
 /**
  * Created from mbpeele on 10/7/17.

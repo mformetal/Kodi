@@ -7,7 +7,7 @@ import java.lang.reflect.Type
 import kotlin.reflect.KClass
 
 /**
- * Created using peelemil on 10/11/17.
+ * Created using mbpeele on 10/11/17.
  */
 interface KodiBuilder {
 

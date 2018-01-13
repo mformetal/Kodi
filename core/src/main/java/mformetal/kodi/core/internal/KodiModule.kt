@@ -6,10 +6,10 @@ import java.lang.reflect.Type
 import kotlin.reflect.KClass
 
 /**
- * Created by peelemil on 10/11/17.
+ * Created by mbpeele on 10/11/17.
  */
 internal class KodiModule(internal val nodeOfModule: Node,
-                          internal val module: Module = Module()) : KodiBuilder by module {
+                          module: Module = Module()) : KodiBuilder by module {
 
     override fun <T : Any> get(tag: String, type: KClass<T>, generics: Array<Type>): T {
         val key = KodiKey(type, generics, tag)

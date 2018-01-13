@@ -7,13 +7,13 @@ import mformetal.kodi.core.api.scoped
 import org.junit.Test
 import assertk.assert
 import assertk.assertions.isEqualTo
-import Kodi
+import mformetal.kodi.core.Kodi
 import mformetal.kodi.core.api.injection.InjectionRegistry
 import mformetal.kodi.core.internal.InjectNotCalledException
 import mformetal.kodi.core.provider.provider
 
 /**
- * Created by peelemil on 10/11/17.
+ * Created by mbpeele on 10/11/17.
  */
 class InjectionTest {
 
