@@ -6,7 +6,7 @@ import java.lang.reflect.Type
 import kotlin.reflect.KClass
 
 /**
- * Created by mbpeele on 10/11/17.
+ * @author - mbpeele on 10/11/17.
  */
 internal class KodiModule(internal val nodeOfModule: Node,
                           module: Module = Module()) : KodiBuilder by module {

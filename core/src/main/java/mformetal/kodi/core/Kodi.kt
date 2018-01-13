@@ -7,7 +7,7 @@ import mformetal.kodi.core.internal.*
 
 
 /**
- * Created by mbpeele on 10/11/17.
+ * @author - mbpeele on 10/11/17.
  */
 class Kodi private constructor(internal val root: Node) {
 

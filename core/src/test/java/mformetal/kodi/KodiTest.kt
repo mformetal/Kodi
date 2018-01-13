@@ -15,7 +15,7 @@ import org.junit.Test
 import java.util.*
 
 /**
- * Created by mbpeele on 10/11/17.
+ * @author - mbpeele on 10/11/17.
  */
 class KodiTest {
 

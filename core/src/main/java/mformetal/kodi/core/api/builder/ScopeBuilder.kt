@@ -4,7 +4,7 @@ import mformetal.kodi.core.api.Scope
 import mformetal.kodi.core.api.ScopeRegistry
 
 /**
- * Created by mbpeele on 10/11/17.
+ * @author - mbpeele on 10/11/17.
  */
 interface ScopeBuilder {
 

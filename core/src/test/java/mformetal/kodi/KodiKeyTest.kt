@@ -8,7 +8,7 @@ import assertk.assertions.isNotEqualTo
 import mformetal.kodi.core.api.generics
 
 /**
- * Created by mbpeele on 10/13/17.
+ * @author - mbpeele on 10/13/17.
  */
 class KodiKeyTest {
 

@@ -13,7 +13,7 @@ import mformetal.kodi.core.internal.InjectNotCalledException
 import mformetal.kodi.core.provider.provider
 
 /**
- * Created by mbpeele on 10/11/17.
+ * @author - mbpeele on 10/11/17.
  */
 class InjectionTest {
 
