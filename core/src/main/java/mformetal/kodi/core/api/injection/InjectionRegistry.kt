@@ -12,9 +12,13 @@ import kotlin.reflect.KClass
  */
 interface InjectionRegistry {
 
-    fun <T : Any> register(tag: String = "", type: KClass<T>, generics: Array<Type>): ReadOnlyProperty<Any, T>
+    fun <T : Any> register(tag: String = "", type: KClass<T>, generics: Array<Type>,
+                           onInject: ((T) -> Unit)? = null): ReadOnlyProperty<Any, T>
 
     fun inject(kodi: Kodi, scope: Scope)
 }
 
 inline fun <reified T : Any> InjectionRegistry.register(tag: String = "") = register(tag, T::class, generics<T>())
+
+inline fun <reified T : Any> InjectionRegistry.register(tag: String = "",
+                                                        noinline onInject: ((T) -> Unit)) = register(tag, T::class, generics<T>(), onInject)

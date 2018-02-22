@@ -16,9 +16,10 @@ class KodiInjector : InjectionRegistry {
 
     private val injectionProperties: MutableSet<InjectionProperty<*>> = mutableSetOf()
 
-    override fun <T : Any> register(tag: String, type: KClass<T>, generics: Array<Type>): ReadOnlyProperty<Any, T> {
+    override fun <T : Any> register(tag: String, type: KClass<T>, generics: Array<Type>,
+                                    onInject: ((T) -> Unit)?): ReadOnlyProperty<Any, T> {
         val key = KodiKey(type, generics, tag)
-        val injection = InjectionProperty(key)
+        val injection = InjectionProperty(key, onInject)
         injectionProperties.add(injection)
         return injection
     }
@@ -28,7 +29,8 @@ class KodiInjector : InjectionRegistry {
         injectionProperties.clear()
     }
 
-    private class InjectionProperty<T : Any>(private val kodiKey: KodiKey<T>) : ReadOnlyProperty<Any, T> {
+    private class InjectionProperty<T : Any>(private val kodiKey: KodiKey<T>,
+                                             private val onInject: ((T) -> Unit)?) : ReadOnlyProperty<Any, T> {
 
         var value : T ?= null
 
@@ -36,6 +38,7 @@ class KodiInjector : InjectionRegistry {
 
         fun provide(kodi: Kodi, scope: Scope) {
             value = kodi.instance(scope, kodiKey)
+            onInject?.invoke(value!!)
         }
     }
 }
