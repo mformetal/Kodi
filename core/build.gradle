@@ -3,11 +3,13 @@ apply plugin: "maven"
 
 group='com.github.mformetal'
 
+def ext = rootProject.extensions.getByName("ext")
+
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation ext.kotlin
 
     testImplementation "junit:junit:4.12"
     testImplementation "com.willowtreeapps.assertk:assertk:0.9"
     testImplementation "com.nhaarman:mockito-kotlin:1.5.0"
-    testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
 }
