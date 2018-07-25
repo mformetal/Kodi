@@ -4,6 +4,8 @@ import mformetal.kodi.core.api.*
 import mformetal.kodi.core.api.builder.KodiBuilder
 import mformetal.kodi.core.api.builder.ScopeBuilder
 import mformetal.kodi.core.internal.*
+import java.lang.reflect.Type
+import kotlin.reflect.KClass
 
 
 /**

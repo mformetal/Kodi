@@ -8,8 +8,10 @@ def ext = rootProject.extensions.getByName("ext")
 dependencies {
     implementation ext.kotlin
 
+    testImplementation ext.kotlinTest
+    testImplementation ext.kotlinReflect
+
     testImplementation "junit:junit:4.12"
     testImplementation "com.willowtreeapps.assertk:assertk:0.9"
     testImplementation "com.nhaarman:mockito-kotlin:1.5.0"
-    testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
 }

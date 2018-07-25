@@ -9,7 +9,7 @@ class KodiKey<T : Any>
 @PublishedApi
 internal constructor(
         internal val kclass: KClass<T>,
-        internal val parameters: Array<Type>,
+        private val parameters: Array<Type>,
         internal val tag: String = "") {
 
     override fun equals(other: Any?): Boolean {
@@ -29,12 +29,14 @@ inline fun <reified T : Any> toKey(tag: String = "") = KodiKey(T::class, generic
 @PublishedApi
 internal abstract class TypeReference<T> : Comparable<TypeReference<T>> {
     val type: Type
-        get() =
-            if (javaClass.genericSuperclass is ParameterizedType) {
-                (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0]
+        get() {
+            val superClass = javaClass.genericSuperclass
+            return if (superClass is ParameterizedType) {
+                superClass.actualTypeArguments.first()
             } else {
-                javaClass.genericSuperclass
+                superClass
             }
+        }
 
     override fun compareTo(other: TypeReference<T>) = 0
 }

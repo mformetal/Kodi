@@ -3,10 +3,10 @@ package mformetal.kodi
 import mformetal.kodi.core.api.toKey
 import org.junit.Test
 import assertk.assert
-import assertk.assertions.contains
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNotEqualTo
 import mformetal.kodi.core.api.generics
+import sun.reflect.generics.reflectiveObjects.WildcardTypeImpl
 
 /**
  * @author - mbpeele on 10/13/17.
@@ -29,7 +29,10 @@ class KodiKeyTest {
     @Test
     fun testKeyRetrievesCorrectGenerics() {
         val definitions = generics<TypedApi<String>>()
-        assert(definitions).contains(String::class.java.genericSuperclass)
+
+        val upperTypeBounds = (definitions[0] as WildcardTypeImpl).upperBounds[0]
+
+        assert(upperTypeBounds).isEqualTo(String::class.java)
     }
 
     @Test

@@ -25,6 +25,8 @@ allprojects {
 
 ext {
     kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+    kotlinTest = "org.jetbrains.kotlin:kotlin-test:$kotlinVersion"
+    kotlinReflect = "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
 
     assertk = "com.willowtreeapps.assertk:assertk:0.10"
     junit = "junit:junit:4.12"

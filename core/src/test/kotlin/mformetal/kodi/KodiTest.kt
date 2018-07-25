@@ -5,12 +5,9 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.isNotNull
 import assertk.assertions.isNull
 import mformetal.kodi.core.Kodi
-import mformetal.kodi.core.api.builder.bind
-import mformetal.kodi.core.api.builder.get
+import mformetal.kodi.core.api.builder.*
 import mformetal.kodi.core.api.scoped
 import mformetal.kodi.core.api.toKey
-import mformetal.kodi.core.provider.provider
-import mformetal.kodi.core.provider.singleton
 import org.junit.Test
 import java.util.*
 
@@ -52,8 +49,8 @@ class KodiTest {
     @Test
     fun testRetrievingDependenciesFromRoot() {
         val kodi = Kodi.init {
-            bind<DependencyOne>() using provider { DependencyOne() }
-            bind<SmallThing>() using provider { SmallThing(get()) }
+            provide { DependencyOne() }
+            provide { SmallThing(get()) }
         }
 
         kodi.root.module.providers.run {
@@ -67,14 +64,14 @@ class KodiTest {
     @Test
     fun testChildNodeRetrievingDependencies() {
         val kodi = Kodi.init {
-            bind<DependencyOne>() using provider { DependencyOne() }
-            bind<SmallThing>() using provider { SmallThing(get()) }
+            provide { DependencyOne() }
+            provide { SmallThing(get()) }
         }
 
         kodi.scopeBuilder {
             build(scoped<Activity>()) {
-                bind<DependencyTwo>() using provider { DependencyTwo() }
-                bind<MediumThing>() using provider { MediumThing(get(), get()) }
+                provide { DependencyTwo() }
+                provide { MediumThing(get(), get()) }
             }
         }
 
@@ -93,19 +90,19 @@ class KodiTest {
         class Second
 
         val kodi = Kodi.init {
-            bind<DependencyOne>() using provider { DependencyOne() }
-            bind<SmallThing>() using provider { SmallThing(get()) }
+            provide { DependencyOne() }
+            provide { SmallThing(get()) }
         }
 
         kodi.scopeBuilder {
             build(scoped<First>()) {
-                bind<DependencyTwo>() using provider { DependencyTwo() }
+                provide { DependencyTwo() }
             }
         }
 
         kodi.scopeBuilder {
             build((scoped<Second>())) {
-                bind<MediumThing>() using provider { MediumThing(get(), get()) }
+                provide { MediumThing(get(), get()) }
             }
         }
 
@@ -118,14 +115,14 @@ class KodiTest {
     @Test
     fun testChildNodeRetrievingSingletonDependencies() {
         val kodi = Kodi.init {
-            bind<DependencyOne>() using singleton { DependencyOne() }
-            bind<SmallThing>() using provider { SmallThing(get()) }
+            singleton { DependencyOne() }
+            provide { SmallThing(get()) }
         }
 
         kodi.scopeBuilder {
             build(scoped<Activity>()) {
-                bind<DependencyTwo>() using provider { DependencyTwo() }
-                bind<MediumThing>() using provider { MediumThing(get(), get()) }
+                provide { DependencyTwo() }
+                provide { MediumThing(get(), get()) }
             }
         }
 
@@ -144,14 +141,14 @@ class KodiTest {
     @Test
     fun testUnregisteringRemovesNodeFromTree() {
         val kodi = Kodi.init {
-            bind<DependencyOne>() using singleton { DependencyOne() }
-            bind<SmallThing>() using provider { SmallThing(get()) }
+            singleton { DependencyOne() }
+            provide { SmallThing(get()) }
         }
 
         val registry = kodi.scopeBuilder {
             build(scoped<Activity>()) {
-                bind<DependencyTwo>() using provider { DependencyTwo() }
-                bind<MediumThing>() using provider { MediumThing(get(), get()) }
+                provide { DependencyTwo() }
+                provide { MediumThing(get(), get()) }
             }
         }
 
@@ -167,12 +164,12 @@ class KodiTest {
         val second = "2"
 
         val kodi = Kodi.init {
-            bind<DependencyOne>() using provider { DependencyOne(first) }
+            provide { DependencyOne(first) }
         }
 
-        kodi.scopeBuilder {
+        val registry = kodi.scopeBuilder {
             build(scoped<Activity>()) {
-                bind<DependencyOne>() using provider { DependencyOne(second) }
+                provide { DependencyOne(second) }
             }
         }
 
@@ -186,12 +183,14 @@ class KodiTest {
         val second = "2"
 
         val kodi = Kodi.init {
-            bind<DependencyOne>("app") using provider { DependencyOne(first) }
+            provide("app") {
+                DependencyOne(first)
+            }
         }
 
         kodi.scopeBuilder()
                 .build(scoped<Activity>()) {
-                    bind<DependencyOne>() using provider { DependencyOne(second) }
+                    provide { DependencyOne(second) }
                 }
 
         val instance = kodi.instance<DependencyOne>(scoped<Activity>(), "app")

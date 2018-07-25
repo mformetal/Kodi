@@ -5,13 +5,13 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.isInstanceOf
 import assertk.assertions.isNotEqualTo
 import assertk.assertions.isNotNull
-import mformetal.kodi.core.api.builder.bind
+import mformetal.kodi.core.api.builder.provide
+import mformetal.kodi.core.api.builder.singleton
 import mformetal.kodi.core.api.builder.get
 import mformetal.kodi.core.internal.module
-import mformetal.kodi.core.provider.provider
-import mformetal.kodi.core.provider.singleton
 import org.junit.Test
 import java.util.*
+import kotlin.test.assertFailsWith
 
 /**
  * @author - mbpeele on 10/7/17.
@@ -21,7 +21,7 @@ class ModuleTest {
     @Test
     fun testRetrievingDependency() {
         val module = module {
-            bind<String>() using provider { "bro" }
+            provide { "bro" }
         }
 
         val dependency = module.get<String>()
@@ -31,15 +31,15 @@ class ModuleTest {
     @Test(expected = IllegalStateException::class)
     fun testBindingSameDependencyClass() {
         module {
-            bind<Thing>() using provider { Thing() }
-            bind<Thing>() using provider { Thing() }
+            provide { Thing() }
+            provide { Thing() }
         }
     }
 
     @Test
     fun testRetrievingNewInstanceProvider() {
         val module = module {
-            bind<Thing>() using provider { Thing() }
+            provide { Thing() }
         }
 
         val first = module.get<Thing>()
@@ -50,7 +50,7 @@ class ModuleTest {
     @Test
     fun testRetrievingusingSingletonProvider() {
         val module = module {
-            bind<Thing>() using singleton { Thing(string = UUID.randomUUID().toString()) }
+            singleton { Thing(string = UUID.randomUUID().toString()) }
         }
 
         val first = module.get<Thing>()
@@ -62,7 +62,7 @@ class ModuleTest {
     fun testAddingChildModules() {
         val root = module {
             child {
-                bind<Int>() using provider { 5 }
+                provide { 5 }
             }
         }
 
@@ -73,9 +73,9 @@ class ModuleTest {
     @Test
     fun testFactoryCreation() {
         val module = module {
-            bind<String>() using provider { "bro" }
-            bind<Int>() using provider { 5 }
-            bind<Thing>() using provider { Thing(get(), get()) }
+            provide { "bro" }
+            provide { 5 }
+            provide { Thing(get(), get()) }
         }
 
         with (module.get<Thing>()) {
@@ -87,8 +87,8 @@ class ModuleTest {
     @Test(expected = NullPointerException::class)
     fun testFactoryCreationWithoutNecessaryDependencies() {
         val module = module {
-            bind<String>() using provider { "bro" }
-            bind<Thing>() using provider { Thing(get(), get()) }
+            provide { "bro" }
+            provide { Thing(get(), get()) }
         }
 
         module.get<Thing>()
@@ -97,9 +97,9 @@ class ModuleTest {
     @Test
     fun testFactoryCreationWithTags() {
         val module = module {
-            bind<String>("first") using provider { "bro" }
-            bind<Int>() using provider { 5 }
-            bind<Thing>() using provider { Thing(get("first"), get()) }
+            provide("first") { "bro" }
+            provide { 5 }
+            provide { Thing(get("first"), get()) }
         }
 
         with (module.get<Thing>()) {
@@ -111,7 +111,7 @@ class ModuleTest {
     @Test
     fun testRetrievingInterface() {
         val module = module {
-            bind<Api>() using provider { ThingImpl() }
+            provide<Api> { ThingImpl() }
         }
 
         with (module.get<Api>()) {
@@ -120,43 +120,47 @@ class ModuleTest {
         }
     }
 
-    @Test(expected = NullPointerException::class)
+    @Test
     fun testRetrievingImplementationOfInterfaceButTypedAsInterface() {
-        val module = module {
-            bind<Api>() using provider { ThingImpl() }
-        }
+        assertFailsWith(java.lang.NullPointerException::class) {
+            val module = module {
+                provide<Api> { ThingImpl() }
+            }
 
-        module.get<ThingImpl>()
+            module.get<ThingImpl>()
+        }
     }
 
     @Test
     fun testRetrievingSuperClass() {
         val module = module {
-            bind<SuperThing>() using provider { SmallThing() }
+            provide<SuperThing> { SmallThing() }
         }
 
         val superThing = module.get<SuperThing>()
         assert(superThing).isInstanceOf(SmallThing::class)
     }
 
-    @Test(expected = NullPointerException::class)
+    @Test
     fun testRetrievingSubClassButTypedAsSuperClass() {
-        val module = module {
-            bind<SuperThing>() using provider { SmallThing() }
-        }
+        assertFailsWith(java.lang.NullPointerException::class) {
+            val module = module {
+                provide<SuperThing> { SmallThing() }
+            }
 
-        module.get<SmallThing>()
+            module.get<SmallThing>()
+        }
     }
 
     @Test
     fun testRetrievingTypedInterface() {
         val module = module {
-            bind<TypedApi<String>>() using provider {
+            provide<TypedApi<String>> {
                 object : TypedApi<String> {
                     override fun get(): String = "THIS"
                 }
             }
-            bind<TypedApi<Int>>() using provider {
+            provide<TypedApi<Int>> {
                 object : TypedApi<Int> {
                     override fun get(): Int = 50
                 }

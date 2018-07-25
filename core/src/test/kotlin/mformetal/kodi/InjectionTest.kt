@@ -5,14 +5,13 @@ import assertk.assertions.isEqualTo
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import mformetal.kodi.core.Kodi
-import mformetal.kodi.core.api.builder.bind
+import mformetal.kodi.core.api.builder.provide
+import mformetal.kodi.core.api.builder.value
 import mformetal.kodi.core.api.injection.InjectionRegistry
 import mformetal.kodi.core.api.injection.KodiInjector
 import mformetal.kodi.core.api.injection.register
 import mformetal.kodi.core.api.scoped
 import mformetal.kodi.core.internal.InjectNotCalledException
-import mformetal.kodi.core.provider.component
-import mformetal.kodi.core.provider.provider
 import org.junit.Test
 
 /**
@@ -26,7 +25,7 @@ class InjectionTest {
 
         kodi.scopeBuilder {
             build(scoped<SimpleInjection>()) {
-                bind<String>() using provider { "BRO" }
+                provide { "BRO" }
             }
         }
 
@@ -43,7 +42,7 @@ class InjectionTest {
 
         kodi.scopeBuilder {
             build(scoped<SimpleInjection>()) {
-                bind<String>() using provider { "BRO" }
+                provide { "BRO" }
             }
         }
 
@@ -88,7 +87,7 @@ class InjectionTest {
         fun onCreate(kodi: Kodi) {
             val registry = kodi.scopeBuilder {
                 build(scoped<ModuleInjection>()) {
-                    bind<String>() using provider { "DUDE" }
+                    provide { "DUDE" }
                 }
             }
 
@@ -105,7 +104,7 @@ class InjectionTest {
         fun onCreate(kodi: Kodi) {
             val registry = kodi.scopeBuilder {
                 build(scoped<ModuleInjection>()) {
-                    bind<TestMethodInterface>() using component(mock())
+                    value(instance = mock<TestMethodInterface>())
                 }
             }
 

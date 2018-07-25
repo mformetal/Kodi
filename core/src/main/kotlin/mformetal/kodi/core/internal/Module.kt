@@ -1,10 +1,11 @@
 package mformetal.kodi.core.internal
 
-import mformetal.kodi.core.api.builder.KodiBuilder
 import mformetal.kodi.core.api.KodiKey
-import mformetal.kodi.core.internal.AmbiguousBindingException
-import mformetal.kodi.core.internal.DuplicateBindingException
+import mformetal.kodi.core.api.builder.KodiBuilder
+import mformetal.kodi.core.api.generics
+import mformetal.kodi.core.provider.LazyProvider
 import mformetal.kodi.core.provider.Provider
+import mformetal.kodi.core.provider.ValueProvider
 import java.lang.reflect.Type
 import kotlin.reflect.KClass
 
@@ -21,19 +22,13 @@ internal class Module : KodiBuilder {
         providers.putAll(module.providers)
     }
 
-    override fun <T : Any> bind(tag: String, type: KClass<T>, generics: Array<Type>) : BindingBuilder<T> {
+    override fun <T : Any> bind(tag: String, type: KClass<T>, generics: Array<Type>, provider: Provider<T>) {
         val key = KodiKey(type, generics, tag)
-        if (providers.keys.contains(key) && tag.isEmpty()) {
-            throw AmbiguousBindingException()
-        } else if (providers.keys.contains(key)) {
-            throw DuplicateBindingException()
+        when {
+            providers.keys.contains(key) && tag.isEmpty() -> throw AmbiguousBindingException()
+            providers.keys.contains(key) -> throw DuplicateBindingException()
+            else -> providers[key] = provider
         }
-
-        return BindingBuilder(key)
-    }
-
-    override fun <T : Any> BindingBuilder<T>.using(provider: Provider<T>) {
-        providers.put(kodiKey, provider)
     }
 
     override fun <T: Any> get(tag: String, type: KClass<T>, generics: Array<Type>): T {
@@ -44,5 +39,3 @@ internal class Module : KodiBuilder {
 }
 
 internal fun module(block: Module.() -> Unit) = Module().apply(block)
-
-class BindingBuilder<T : Any>(val kodiKey: KodiKey<T>)

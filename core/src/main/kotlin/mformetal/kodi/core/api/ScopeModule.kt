@@ -2,6 +2,7 @@ package mformetal.kodi.core.api
 
 import mformetal.kodi.core.Kodi
 import mformetal.kodi.core.api.builder.KodiBuilder
+import mformetal.kodi.core.internal.Module
 
 interface ScopeModule {
 

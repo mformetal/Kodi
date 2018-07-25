@@ -6,11 +6,10 @@ import mformetal.kodi.core.Kodi
 import mformetal.kodi.core.api.Scope
 import mformetal.kodi.core.api.ScopeModule
 import mformetal.kodi.core.api.builder.KodiBuilder
-import mformetal.kodi.core.api.builder.bind
+import mformetal.kodi.core.api.builder.value
 import mformetal.kodi.core.api.providerBuilder
 import mformetal.kodi.core.api.scoped
 import mformetal.kodi.core.internal.Module
-import mformetal.kodi.core.provider.component
 import org.junit.Test
 
 class InstallKodiScopeTest {
@@ -31,7 +30,7 @@ class InstallKodiScopeTest {
         val builderKodi = Kodi.init {  }
         builderKodi.scopeBuilder()
                 .build(testScope) {
-                    bind<String>() using component("anything")
+                    value(instance = "anything")
                 }
 
         val moduleKodi = Kodi.init {  }
@@ -69,7 +68,7 @@ class SomeModule : ScopeModule {
 
     override fun providers(): KodiBuilder.() -> Unit {
         return providerBuilder {
-            bind<String>() using component("anything")
+            value(instance = "anything")
         }
     }
 }
